@@ -89,7 +89,7 @@ def main():
     left = right = False  # по умолчанию - стоим
     up = False
     running = False
-    label = pygame.font.Font('font.ttf', 40)
+    label = pygame.font.Font('font.otf', 40)
     lose_label = label.render('Вы проиграли!', False, (193, 196, 199))
     restart_label = label.render('Играть снова', False, (115, 132, 148))
     restart_label_rect = restart_label.get_rect(topleft=(180, 200))
@@ -168,6 +168,7 @@ def main():
             if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                 right = left = running = up = False
                 hero.not_die = True
+                hero.sound_die.stop()
                 pygame.mixer.music.set_pos(0.0)
 
             for e in pygame.event.get():  # Обрабатываем события
@@ -175,7 +176,9 @@ def main():
                     raise SystemExit
 
         pygame.display.update()
-
+    else:
+        sound_die = pygame.mixer.Sound('mario-smert.mp3')
+        sound_die.play()
 
 level = []
 entities = pygame.sprite.Group()  # Все объекты

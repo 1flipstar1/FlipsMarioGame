@@ -167,7 +167,7 @@ class Player(sprite.Sprite):
 
     def die(self):
         time.wait(500)
-        sound_die = mixer.Sound('mario-smert.mp3')
-        sound_die.play()
+        self.sound_die = mixer.Sound('mario-smert.mp3')
+        self.sound_die.play()
         self.not_die = False
         self.teleporting(self.startX, self.startY)  # перемещаемся в начальные координаты
