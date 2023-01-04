@@ -83,6 +83,9 @@ def main():
     pygame.display.set_caption("Super Mario Boy")  # Пишем в шапку
     bg = pygame.image.load('bg.gif')  # добавляем фоновое изображение
 
+    pygame.mixer.music.load("saundtrack.mp3")
+    pygame.mixer.music.play(-1)
+
     left = right = False  # по умолчанию - стоим
     up = False
     running = False
@@ -124,6 +127,7 @@ def main():
     while not hero.winner:  # and hero.not_die: # Основной цикл программы
         timer.tick(60)
         if hero.not_die:
+            pygame.mixer.music.unpause()
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
                     raise SystemExit  # , "QUIT"
@@ -155,14 +159,17 @@ def main():
                 screen.blit(e.image, camera.apply(e))
                 # обновление и вывод всех изменений на экран
         else:
+            pygame.mixer.music.pause()
             screen.blit(bg, (0, 0))
-            # screen.fill((87, 88, 89))
             screen.blit(lose_label, (180, 100))
             screen.blit(restart_label, restart_label_rect)
 
             mouse = pygame.mouse.get_pos()
             if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                right = left = running = up = False
                 hero.not_die = True
+                pygame.mixer.music.set_pos(0.0)
+
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
                     raise SystemExit
