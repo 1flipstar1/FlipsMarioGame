@@ -164,7 +164,7 @@ def main():
             screen.blit(button, (180, 100))
             mouse = pygame.mouse.get_pos()
             if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                print("меню")
+                raise SystemExit
         else:
             pygame.mixer.music.pause()
             screen.blit(bg, (0, 0))
@@ -182,7 +182,6 @@ def main():
                 if e.type == QUIT:
                     raise SystemExit
 
-
         pygame.display.update()
 
 
@@ -193,9 +192,3 @@ monsters = pygame.sprite.Group()  # Все передвигающиеся объ
 platforms = []  # то, во что мы будем врезаться или опираться
 if __name__ == "__main__":
     main()
-    '''if hero.winner:
-        while True:
-            screen.fill((0, 0,0))
-            for e in pygame.event.get():  # Обрабатываем события
-                if e.type == QUIT:
-                    raise SystemExit'''
