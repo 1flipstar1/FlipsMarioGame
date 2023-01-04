@@ -77,6 +77,7 @@ def loadLevel():
 
 
 def main():
+    global hero, screen
     loadLevel()
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -85,6 +86,9 @@ def main():
 
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
+
+    button = pygame.image.load('mario/0.png')
+    button_rect = button.get_rect(topright=(200, 100))
 
     left = right = False  # по умолчанию - стоим
     up = False
@@ -123,14 +127,13 @@ def main():
     total_level_height = len(level) * PLATFORM_HEIGHT  # высоту
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
-    a = True
-    while not hero.winner:  # and hero.not_die: # Основной цикл программы
+    while not hero.winner:  # Основной цикл программы
         timer.tick(60)
         if hero.not_die:
             pygame.mixer.music.unpause()
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
-                    raise SystemExit  # , "QUIT"
+                    raise SystemExit  # , "QUIT"'''
                 if e.type == KEYDOWN and e.key == K_UP:
                     up = True
                 if e.type == KEYDOWN and e.key == K_LEFT:
@@ -158,6 +161,10 @@ def main():
             for e in entities:
                 screen.blit(e.image, camera.apply(e))
                 # обновление и вывод всех изменений на экран
+            screen.blit(button, (180, 100))
+            mouse = pygame.mouse.get_pos()
+            if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                print("меню")
         else:
             pygame.mixer.music.pause()
             screen.blit(bg, (0, 0))
@@ -175,10 +182,9 @@ def main():
                 if e.type == QUIT:
                     raise SystemExit
 
+
         pygame.display.update()
-    else:
-        sound_die = pygame.mixer.Sound('mario-smert.mp3')
-        sound_die.play()
+
 
 level = []
 entities = pygame.sprite.Group()  # Все объекты
@@ -187,3 +193,9 @@ monsters = pygame.sprite.Group()  # Все передвигающиеся объ
 platforms = []  # то, во что мы будем врезаться или опираться
 if __name__ == "__main__":
     main()
+    '''if hero.winner:
+        while True:
+            screen.fill((0, 0,0))
+            for e in pygame.event.get():  # Обрабатываем события
+                if e.type == QUIT:
+                    raise SystemExit'''

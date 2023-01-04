@@ -87,11 +87,15 @@ class Player(sprite.Sprite):
 
         if up:
             if self.onGround:  # прыгаем, только когда можем оттолкнуться от земли
+                jump_sound = mixer.Sound('jump_sound.mp3')
+                jump_sound.set_volume(0.2)
+                jump_sound.play()
                 self.yvel = -JUMP_POWER
                 if running and (left or right):  # если есть ускорение и мы движемся
                     self.yvel -= JUMP_EXTRA_POWER  # то прыгаем выше
                 self.image.fill(Color(COLOR))
                 self.boltAnimJump.blit(self.image, (0, 0))
+
 
         if left:
             self.xvel = -MOVE_SPEED  # Лево = x- n
