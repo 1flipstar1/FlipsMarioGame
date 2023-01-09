@@ -12,7 +12,7 @@ MOVE_EXTRA_SPEED = 2.5  # ускорение
 WIDTH = 22
 HEIGHT = 32
 COLOR = "#888888"
-JUMP_POWER = 10
+JUMP_POWER = 8.5
 JUMP_EXTRA_POWER = 1  # дополнительная сила прыжка
 GRAVITY = 0.35  # Сила, которая будет тянуть нас вниз
 ANIMATION_DELAY = 0.1  # скорость смены кадров
@@ -147,7 +147,10 @@ class Player(sprite.Sprite):
                     self.die()  # умираем
                 elif isinstance(p, blocks.BlockTeleport):
                     self.teleporting(p.goX, p.goY)
-                elif isinstance(p, blocks.Princess):  # если коснулись принцессы
+                elif isinstance(p, blocks.Princess):
+                    self.sound_win = mixer.Sound('victory.mp3')
+                    self.sound_win.play()
+                    # если коснулись принцессы
                     self.winner = True  # победили!!!
                 else:
                     if xvel > 0:  # если движется вправо

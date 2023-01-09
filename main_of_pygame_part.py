@@ -42,10 +42,9 @@ def camera_configure(camera, target_rect):
     return Rect(l, t, w, h)
 
 
-def loadLevel():
+def loadLevel(num):
     global playerX, playerY  # объявляем глобальные переменные, это координаты героя
-
-    levelFile = open('%s/levels/1.txt' % FILE_DIR)
+    levelFile = open(f'levels/{str(num)}.txt')
     line = " "
     commands = []
     while line[0] != "/":  # пока не нашли символ завершения файла
@@ -76,9 +75,9 @@ def loadLevel():
                     monsters.add(mn)
 
 
-def main():
+def main(num):
     global hero, screen
-    loadLevel()
+    loadLevel(num)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Super Mario Boy")  # Пишем в шапку
@@ -87,13 +86,28 @@ def main():
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
 
-    button = pygame.image.load('mario/0.png')
-    button_rect = button.get_rect(topright=(200, 100))
+    button = pygame.image.load('buttons\pause.png')
+    button_rect = button.get_rect(topright=(800, 0))
 
     left = right = False  # по умолчанию - стоим
     up = False
     running = False
+
     label = pygame.font.Font('font.otf', 40)
+    big_label = pygame.font.Font('font.otf', 80)
+
+    win_label = label.render('Вы победили!', False, (193, 196, 199))
+
+    continue_button = label.render('Продолжить', False, (255, 255, 255))
+    continue_button_rect = continue_button.get_rect(topleft=(280, 250))
+
+    go_back_button = label.render('Меню', False, (255, 255, 255))
+    go_back_button_rect = go_back_button.get_rect(topleft=(330, 400))
+
+    imag = pygame.image.load('Меню-1.png')
+
+    pause_label = big_label.render('ПАУЗА', False, (193, 196, 199))
+
     lose_label = label.render('Вы проиграли!', False, (193, 196, 199))
     restart_label = label.render('Играть снова', False, (115, 132, 148))
     restart_label_rect = restart_label.get_rect(topleft=(180, 200))
@@ -127,57 +141,82 @@ def main():
     total_level_height = len(level) * PLATFORM_HEIGHT  # высоту
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
-    while not hero.winner:  # Основной цикл программы
-        timer.tick(60)
-        if hero.not_die:
-            pygame.mixer.music.unpause()
-            for e in pygame.event.get():  # Обрабатываем события
-                if e.type == QUIT:
-                    raise SystemExit  # , "QUIT"'''
-                if e.type == KEYDOWN and e.key == K_UP:
-                    up = True
-                if e.type == KEYDOWN and e.key == K_LEFT:
-                    left = True
-                if e.type == KEYDOWN and e.key == K_RIGHT:
-                    right = True
-                if e.type == KEYDOWN and e.key == K_LSHIFT:
-                    running = True
+    gameplay = True
+    while True:
+        print(pygame.mouse.get_pos())
+        #print(hero.rect.x, hero.rect.y)# Основной цикл программы
+        if not hero.winner:
+            timer.tick(60)
+            if hero.not_die:
+                if gameplay:
+                    pygame.mixer.music.unpause()
+                    for e in pygame.event.get():  # Обрабатываем события
+                        if e.type == QUIT:
+                            raise SystemExit
+                        if e.type == KEYDOWN and e.key == K_UP:
+                            up = True
+                        if e.type == KEYDOWN and e.key == K_LEFT:
+                            left = True
+                        if e.type == KEYDOWN and e.key == K_RIGHT:
+                            right = True
+                        if e.type == KEYDOWN and e.key == K_LSHIFT:
+                            running = True
 
-                if e.type == KEYUP and e.key == K_UP:
-                    up = False
-                if e.type == KEYUP and e.key == K_RIGHT:
-                    right = False
-                if e.type == KEYUP and e.key == K_LEFT:
-                    left = False
-                if e.type == KEYUP and e.key == K_LSHIFT:
-                    running = False
+                        if e.type == KEYUP and e.key == K_UP:
+                            up = False
+                        if e.type == KEYUP and e.key == K_RIGHT:
+                            right = False
+                        if e.type == KEYUP and e.key == K_LEFT:
+                            left = False
+                        if e.type == KEYUP and e.key == K_LSHIFT:
+                            running = False
 
-            screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
+                    screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
-            animatedEntities.update()  # показываеaм анимацию
-            monsters.update(platforms)  # передвигаем всех монстров
-            camera.update(hero)  # центризируем камеру относительно персонажа
-            hero.update(left, right, up, running, platforms)  # передвижение
-            for e in entities:
-                screen.blit(e.image, camera.apply(e))
-                # обновление и вывод всех изменений на экран
-            screen.blit(button, (180, 100))
-            mouse = pygame.mouse.get_pos()
-            if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                raise SystemExit
+                    animatedEntities.update()  # показываеaм анимацию
+                    monsters.update(platforms)  # передвигаем всех монстров
+                    camera.update(hero)  # центризируем камеру относительно персонажа
+                    hero.update(left, right, up, running, platforms)  # передвижение
+                    for e in entities:
+                        screen.blit(e.image, camera.apply(e))
+                        # обновление и вывод всех изменений на экран
+                    screen.blit(button, button_rect)
+                    mouse = pygame.mouse.get_pos()
+                    if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                        gameplay = False
+
+                else:
+                    pygame.mixer.music.pause()
+                    screen.blit(imag, (0, 0))
+                    #screen.fill((0, 0, 0))
+                    #screen.blit(pause_label, (260, 120))
+                    #screen.blit(go_back_button, go_back_button_rect)
+                    #screen.blit(continue_button, continue_button_rect)
+                    mouse = pygame.mouse.get_pos()
+                    if continue_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                        gameplay = True
+                    for e in pygame.event.get():  # Обрабатываем события
+                        if e.type == QUIT:
+                            raise SystemExit
+            else:
+                pygame.mixer.music.pause()
+                screen.blit(bg, (0, 0))
+                screen.blit(lose_label, (180, 100))
+                screen.blit(restart_label, restart_label_rect)
+
+                mouse = pygame.mouse.get_pos()
+                if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                    right = left = running = up = False
+                    hero.not_die = True
+                    hero.sound_die.stop()
+                    pygame.mixer.music.set_pos(0.0)
+                for e in pygame.event.get():  # Обрабатываем события
+                    if e.type == QUIT:
+                        raise SystemExit
         else:
             pygame.mixer.music.pause()
-            screen.blit(bg, (0, 0))
-            screen.blit(lose_label, (180, 100))
-            screen.blit(restart_label, restart_label_rect)
-
-            mouse = pygame.mouse.get_pos()
-            if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                right = left = running = up = False
-                hero.not_die = True
-                hero.sound_die.stop()
-                pygame.mixer.music.set_pos(0.0)
-
+            screen.fill((0, 0, 0))
+            screen.blit(win_label, (180, 100))
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
                     raise SystemExit
@@ -191,4 +230,5 @@ animatedEntities = pygame.sprite.Group()  # все анимированные о
 monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
 platforms = []  # то, во что мы будем врезаться или опираться
 if __name__ == "__main__":
-    main()
+    main(2)
+
