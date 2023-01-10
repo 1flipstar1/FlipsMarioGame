@@ -86,8 +86,8 @@ def main(num):
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
 
-    button = pygame.image.load('buttons\pause.png')
-    button_rect = button.get_rect(topright=(800, 0))
+    #button = pygame.image.load('buttons\pause.png')
+    #button_rect = button.get_rect(topright=(800, 0))
 
     left = right = False  # по умолчанию - стоим
     up = False
@@ -180,10 +180,10 @@ def main(num):
                     for e in entities:
                         screen.blit(e.image, camera.apply(e))
                         # обновление и вывод всех изменений на экран
-                    screen.blit(button, button_rect)
+                    #screen.blit(button, button_rect)
                     mouse = pygame.mouse.get_pos()
-                    if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                        gameplay = False
+                    #if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                        #gameplay = False
 
                 else:
                     pygame.mixer.music.pause()
