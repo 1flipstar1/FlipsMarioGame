@@ -6,6 +6,17 @@ from PyQt5.QtGui import QPixmap
 from main_of_pygame_part import main
 
 
+class LevelWindow(QMainWindow):
+    def __init__(self, n):
+        super().__init__()
+        uic.loadUi('levels_menu.ui', self)
+        self.lvl1.clicked.connect(self.starts)
+        self.lvl2.clicked.connect(self.starts)
+        self.lvl3.clicked.connect(self.starts)
+
+    def starts(self):
+        main(self.sender().text())
+
 class SMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -18,14 +29,12 @@ class SMainWindow(QMainWindow):
         self.pushButton_2.clicked.connect(self.close)
         self.pb3.clicked.connect(self.choce_lvl1)
 
+
     def choce_lvl1(self):
-        lvl_win = LevelWindow()
-        lvl_win.show()
-        '''if __name__ == '__main__':
-            app = QtWidgets.QApplication(sys.argv)
-            
-            sys.excepthook = except_hook
-            sys.exit(app.exec_())'''
+        self.close()
+        self.lvl_win = LevelWindow(self)
+        self.lvl_win.show()
+
 
     def run(self):
         self.close()
@@ -35,20 +44,10 @@ class SMainWindow(QMainWindow):
 
 
 
-class LevelWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        uic.loadUi('levels_menu.ui', self)
-        self.lvl1.clicked.connect(self.starts)
-        self.lvl2.clicked.connect(self.starts)
-        self.lvl3.clicked.connect(self.starts)
-
-    def starts(self, num_of_lvl=5):
-        print(1)
-
-
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = SMainWindow()
