@@ -187,7 +187,6 @@ def main(num):
                     pygame.mixer.music.pause()
                     screen.blit(imag, (0, 0))
                     screen.fill((0, 0, 0))
-                    #screen.blit(pause_label, (260, 120))
                     screen.blit(go_back_button, go_back_button_rect)
                     screen.blit(continue_button, continue_button_rect)
                     mouse = pygame.mouse.get_pos()
