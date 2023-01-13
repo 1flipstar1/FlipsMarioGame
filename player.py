@@ -19,20 +19,20 @@ ANIMATION_DELAY = 0.1  # скорость смены кадров
 ANIMATION_SUPER_SPEED_DELAY = 0.05  # скорость смены кадров при ускорении
 ICON_DIR = os.path.dirname(__file__)  # Полный путь к каталогу с файлами
 
-ANIMATION_RIGHT = [('%s/mario/r1.png' % ICON_DIR),
-                   ('%s/mario/r2.png' % ICON_DIR),
-                   ('%s/mario/r3.png' % ICON_DIR),
-                   ('%s/mario/r4.png' % ICON_DIR),
-                   ('%s/mario/r5.png' % ICON_DIR)]
-ANIMATION_LEFT = [('%s/mario/l1.png' % ICON_DIR),
-                  ('%s/mario/l2.png' % ICON_DIR),
-                  ('%s/mario/l3.png' % ICON_DIR),
-                  ('%s/mario/l4.png' % ICON_DIR),
-                  ('%s/mario/l5.png' % ICON_DIR)]
-ANIMATION_JUMP_LEFT = [('%s/mario/jl.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP_RIGHT = [('%s/mario/jr.png' % ICON_DIR, 0.1)]
-ANIMATION_JUMP = [('%s/mario/j.png' % ICON_DIR, 0.1)]
-ANIMATION_STAY = [('%s/mario/0.png' % ICON_DIR, 0.1)]
+ANIMATION_RIGHT = [('%s/Design/mario/r1.png' % ICON_DIR),
+                   ('%s/Design/mario/r2.png' % ICON_DIR),
+                   ('%s/Design/mario/r3.png' % ICON_DIR),
+                   ('%s/Design/mario/r4.png' % ICON_DIR),
+                   ('%s/Design/mario/r5.png' % ICON_DIR)]
+ANIMATION_LEFT = [('%s/Design/mario/l1.png' % ICON_DIR),
+                  ('%s/Design/mario/l2.png' % ICON_DIR),
+                  ('%s/Design/mario/l3.png' % ICON_DIR),
+                  ('%s/Design/mario/l4.png' % ICON_DIR),
+                  ('%s/Design/mario/l5.png' % ICON_DIR)]
+ANIMATION_JUMP_LEFT = [('%s/Design/mario/jl.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP_RIGHT = [('%s/Design/mario/jr.png' % ICON_DIR, 0.1)]
+ANIMATION_JUMP = [('%s/Design/mario/j.png' % ICON_DIR, 0.1)]
+ANIMATION_STAY = [('%s/Design/mario/0.png' % ICON_DIR, 0.1)]
 
 
 class Player(sprite.Sprite):

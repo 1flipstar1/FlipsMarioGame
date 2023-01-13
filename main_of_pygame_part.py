@@ -86,7 +86,7 @@ def main(num):
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
 
-    button = pygame.image.load('buttons\pause.png')
+    button = pygame.image.load('Design/pause\pause.png')
     button_rect = button.get_rect(topright=(800, 0))
 
     left = right = False  # по умолчанию - стоим
@@ -96,15 +96,19 @@ def main(num):
     label = pygame.font.Font('font.otf', 40)
     big_label = pygame.font.Font('font.otf', 80)
 
-    win_label = label.render('Вы победили!', False, (193, 196, 199))
+    win_label = pygame.image.load('Design/result/victory.png')
+    loose_label = pygame.image.load('Design/result/loose.png')
 
-    continue_button = label.render('Продолжить', False, (255, 255, 255))
-    continue_button_rect = continue_button.get_rect(topleft=(280, 250))
+    continue_button = pygame.image.load('Design/pause/continue.png')
+    continue_button_rect = continue_button.get_rect(topleft=(296, 255))
+
+    go_back = pygame.image.load('Design/pause/go_back.png')
+    go_back_rect = go_back.get_rect(topleft=(296, 322))
 
     go_back_button = label.render('Меню', False, (255, 255, 255))
     go_back_button_rect = go_back_button.get_rect(topleft=(330, 400))
 
-    imag = pygame.image.load('menu/menu_bg.png')
+    pause_im = pygame.image.load('Design/pause/pause_menu_bg.png')
 
     pause_label = big_label.render('ПАУЗА', False, (193, 196, 199))
 
@@ -142,11 +146,13 @@ def main(num):
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
     gameplay = True
+    c = 0
     while True:# Основной цикл программы
         if not hero.winner:
             timer.tick(60)
             if hero.not_die:
                 if gameplay:
+                    c = 0
                     pygame.mixer.music.unpause()
                     for e in pygame.event.get():  # Обрабатываем события
                         if e.type == QUIT:
@@ -183,24 +189,33 @@ def main(num):
                     if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                         gameplay = False
 
+
                 else:
+                    if c == 0:
+                        screen.blit(bg, (0, 0))
+                        animatedEntities.update()  # показываеaм анимацию
+                        monsters.update(platforms)  # передвигаем всех монстров
+                        camera.update(hero)  # центризируем камеру относительно персонажа
+                        hero.update(left, right, up, running, platforms)  # передвижение
+                        for e in entities:
+                            screen.blit(e.image, camera.apply(e))
+                            # обновление и вывод всех изменений на экран
                     pygame.mixer.music.pause()
-                    screen.blit(imag, (0, 0))
-                    screen.fill((0, 0, 0))
-                    screen.blit(go_back_button, go_back_button_rect)
+                    screen.blit(pause_im, (0, 0))
                     screen.blit(continue_button, continue_button_rect)
+                    screen.blit(go_back, go_back_rect)
                     mouse = pygame.mouse.get_pos()
                     if continue_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                         gameplay = True
+                    if go_back_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                        raise SystemExit
                     for e in pygame.event.get():  # Обрабатываем события
                         if e.type == QUIT:
                             raise SystemExit
+                    c = 1
             else:
                 pygame.mixer.music.pause()
-                screen.blit(bg, (0, 0))
-                screen.blit(lose_label, (180, 100))
-                screen.blit(restart_label, restart_label_rect)
-
+                screen.blit(loose_label, (0, 0))
                 mouse = pygame.mouse.get_pos()
                 if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                     right = left = running = up = False
@@ -212,8 +227,7 @@ def main(num):
                         raise SystemExit
         else:
             pygame.mixer.music.pause()
-            screen.fill((0, 0, 0))
-            screen.blit(win_label, (180, 100))
+            screen.blit(win_label, (0, 0))
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
                     raise SystemExit

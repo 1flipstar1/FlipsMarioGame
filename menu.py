@@ -11,30 +11,30 @@ def menu():
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Super Mario Boy")  # Название
-    bg = pygame.image.load('menu/menu_bg.png')  # добавляем фоновое изображение
+    bg = pygame.image.load('Design/menu/menu_bg.png')  # добавляем фоновое изображение
 
-    start_button = pygame.image.load('menu/start_menu_button.png') # Создание кнопок для меню
+    start_button = pygame.image.load('Design/menu/start_menu_button.png') # Создание кнопок для меню
     start_button_rect = start_button.get_rect(topleft=(276, 251))
-    instruction_button = pygame.image.load('menu/instruction_button.png')
+    instruction_button = pygame.image.load('Design/menu/instruction_button.png')
     instruction_button_rect = instruction_button.get_rect(topleft=(276, 319))
-    exit_button = pygame.image.load('menu/exit_button.png')
+    exit_button = pygame.image.load('Design/menu/exit_button.png')
     exit_button_rect = exit_button.get_rect(topleft=(276, 387))
 
-    instructions_img = pygame.image.load('instructions/instructions.png')
+    instructions_img = pygame.image.load('Design/instructions/instructions.png')
 
-    go_back_to_menu = pygame.image.load('instructions/go_back.png')
+    go_back_to_menu = pygame.image.load('Design/instructions/go_back.png')
     go_back_to_menu_rect = go_back_to_menu.get_rect(topleft=(38, 585))
 
-    go_back_to_menu2 = pygame.image.load('instructions/go_back.png')
+    go_back_to_menu2 = pygame.image.load('Design/instructions/go_back.png')
     go_back_to_menu_rect2 = go_back_to_menu.get_rect(topleft=(53, 585))
 
-    levels_bg = pygame.image.load('levels_menu/level_menu.png')
+    levels_bg = pygame.image.load('Design/levels_menu/level_menu.png')
 
-    level_1 = pygame.image.load('levels_menu/1_level.png') # Создание кнопок для меню
+    level_1 = pygame.image.load('Design/levels_menu/1_level.png') # Создание кнопок для меню
     level_1_rect = level_1.get_rect(topleft=(276, 251))
-    level_2 = pygame.image.load('levels_menu/2_level.png')
+    level_2 = pygame.image.load('Design/levels_menu/2_level.png')
     level_2_rect = level_2.get_rect(topleft=(276, 319))
-    level_3 = pygame.image.load('levels_menu/3_level.png')
+    level_3 = pygame.image.load('Design/levels_menu/3_level.png')
     level_3_rect = level_3.get_rect(topleft=(276, 387))
 
     clock = pygame.time.Clock()
