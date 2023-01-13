@@ -86,8 +86,8 @@ def main(num):
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
 
-    #button = pygame.image.load('buttons\pause.png')
-    #button_rect = button.get_rect(topright=(800, 0))
+    button = pygame.image.load('buttons\pause.png')
+    button_rect = button.get_rect(topright=(800, 0))
 
     left = right = False  # по умолчанию - стоим
     up = False
@@ -104,7 +104,7 @@ def main(num):
     go_back_button = label.render('Меню', False, (255, 255, 255))
     go_back_button_rect = go_back_button.get_rect(topleft=(330, 400))
 
-    imag = pygame.image.load('Меню-1.png')
+    imag = pygame.image.load('menu/menu_bg.png')
 
     pause_label = big_label.render('ПАУЗА', False, (193, 196, 199))
 
@@ -178,18 +178,18 @@ def main(num):
                     for e in entities:
                         screen.blit(e.image, camera.apply(e))
                         # обновление и вывод всех изменений на экран
-                    #screen.blit(button, button_rect)
+                    screen.blit(button, button_rect)
                     mouse = pygame.mouse.get_pos()
-                    #if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                        #gameplay = False
+                    if button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+                        gameplay = False
 
                 else:
                     pygame.mixer.music.pause()
                     screen.blit(imag, (0, 0))
-                    #screen.fill((0, 0, 0))
+                    screen.fill((0, 0, 0))
                     #screen.blit(pause_label, (260, 120))
-                    #screen.blit(go_back_button, go_back_button_rect)
-                    #screen.blit(continue_button, continue_button_rect)
+                    screen.blit(go_back_button, go_back_button_rect)
+                    screen.blit(continue_button, continue_button_rect)
                     mouse = pygame.mouse.get_pos()
                     if continue_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                         gameplay = True
