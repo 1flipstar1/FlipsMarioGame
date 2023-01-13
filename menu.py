@@ -7,11 +7,14 @@ WIN_HEIGHT = 640  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 
 
-def menu():
+
+def menu(need_anim):
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Super Mario Boy")  # Название
     bg = pygame.image.load('Design/menu/menu_bg.png')  # добавляем фоновое изображение
+
+    menu_im = pygame.image.load('Design/menu/menu_lbl.png')
 
     start_button = pygame.image.load('Design/menu/start_menu_button.png') # Создание кнопок для меню
     start_button_rect = start_button.get_rect(topleft=(276, 251))
@@ -42,28 +45,82 @@ def menu():
     chose_level = False  # Переменные для сосотояния окна
     instructions = False
 
-    x = 0
+    '''x = 0
     y = 200
     a = 1
-    while x != 200:
-        clock.tick(60)
+    while y != 276 and x != 251:
+        clock.tick(18)
         screen.fill((0, 0, 0))
-        x += 1
+        x += 4
         if a == 1:
-            y += 20
-            screen.blit(start_button, (y, x))
-            pygame.display.update()
+            count = 0
+            while count != 200:
+                y += 1
+                screen.fill((0, 0, 0))
+                screen.blit(start_button, (y, x))
+                pygame.display.update()
+                count += 1
             a = 2
-            continue
-        if a == 2:
-            y -= 20
-            screen.blit(start_button, (y, x))
-            pygame.display.update()
+        else:
+            count = 0
+            while count != 200:
+                y -= 1
+                screen.fill((0, 0, 0))
+                screen.blit(start_button, (y, x))
+                pygame.display.update()
+                count += 1
             a = 1
-            continue
+        for e in pygame.event.get():  # Обрабатываем события
+            if e.type == pygame.constants.QUIT:
+                raise SystemExit'''
+    if need_anim:
+        while True:
+            menu_b_y = 0
+            while menu_b_y != 181:
+                clock.tick(700)
+                screen.fill('#cb2229')
+                screen.blit(menu_im, (268, menu_b_y))
+                menu_b_y += 1
+                pygame.display.update()
+
+
+            start_b_x = -251
+            while start_b_x != 276:
+                clock.tick(700)
+                screen.fill('#cb2229')
+                screen.blit(menu_im, (268, 181))
+                screen.blit(start_button, (start_b_x, 251))
+                start_b_x += 1
+                pygame.display.update()
+
+
+            inst_b_x = 891
+            while inst_b_x != 276:
+                clock.tick(700)
+                screen.fill('#cb2229')
+                screen.blit(menu_im, (268, 181))
+                screen.blit(start_button, ((276, 251)))
+                screen.blit(instruction_button, (inst_b_x, 319))
+                inst_b_x -= 1
+                pygame.display.update()
+
+            start_b_x = -251
+            while start_b_x != 276:
+                clock.tick(700)
+                screen.fill('#cb2229')
+                screen.blit(menu_im, (268, 181))
+                screen.blit(start_button, ((276, 251)))
+                screen.blit(instruction_button, ((276, 319)))
+                screen.blit(start_button, (start_b_x, 387))
+                start_b_x += 1
+                pygame.display.update()
+            break
+
+
 
     while not chose_level and not instructions:
         screen.blit(bg, (0, 0))
+        screen.blit(menu_im, (268, 181))
         screen.blit(start_button, start_button_rect)
         screen.blit(instruction_button, instruction_button_rect)
         screen.blit(exit_button, exit_button_rect)
@@ -90,13 +147,16 @@ def menu():
 
         if go_back_to_menu_rect2.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
             chose_level = False
-            menu()
+            menu(False)
 
         for e in pygame.event.get():  # Обрабатываем события
             if e.type == pygame.constants.QUIT:
                 raise SystemExit
             if level_1_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
-                main(1)
+                res = main(1)
+                if res == 2:
+                    menu(False)
+
             if level_2_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
                 main(2)
             if level_3_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
@@ -109,7 +169,7 @@ def menu():
         mouse = pygame.mouse.get_pos()
         if go_back_to_menu_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
             instructions = False
-            menu()
+            menu(False)
         for e in pygame.event.get():  # Обрабатываем события
             if e.type == pygame.constants.QUIT:
                 raise SystemExit
@@ -121,4 +181,4 @@ def except_hook(cls, exception, traceback):
 
 
 if __name__ == "__main__":
-    menu()
+    menu(True)

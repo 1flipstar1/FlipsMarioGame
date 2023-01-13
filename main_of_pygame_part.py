@@ -8,6 +8,7 @@ from player import *
 from blocks import *
 from monsters import *
 
+
 # Объявляем переменные
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 640  # Высота
@@ -76,7 +77,8 @@ def loadLevel(num):
 
 
 def main(num):
-    global hero, screen
+    global hero, screen, level
+    level = []
     loadLevel(num)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -208,7 +210,8 @@ def main(num):
                     if continue_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                         gameplay = True
                     if go_back_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                        raise SystemExit
+                        print(21)
+                        return 2
                     for e in pygame.event.get():  # Обрабатываем события
                         if e.type == QUIT:
                             raise SystemExit
