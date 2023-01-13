@@ -42,6 +42,26 @@ def menu():
     chose_level = False  # Переменные для сосотояния окна
     instructions = False
 
+    x = 0
+    y = 200
+    a = 1
+    while x != 200:
+        clock.tick(60)
+        screen.fill((0, 0, 0))
+        x += 1
+        if a == 1:
+            y += 20
+            screen.blit(start_button, (y, x))
+            pygame.display.update()
+            a = 2
+            continue
+        if a == 2:
+            y -= 20
+            screen.blit(start_button, (y, x))
+            pygame.display.update()
+            a = 1
+            continue
+
     while not chose_level and not instructions:
         screen.blit(bg, (0, 0))
         screen.blit(start_button, start_button_rect)
