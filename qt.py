@@ -39,7 +39,6 @@ class SMainWindow(QMainWindow):
     def run(self):
         self.close()
         if __name__ == "__main__":
-
             main(2)
 
 

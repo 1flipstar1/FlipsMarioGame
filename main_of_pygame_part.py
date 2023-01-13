@@ -142,9 +142,7 @@ def main(num):
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
     gameplay = True
-    while True:
-        print(pygame.mouse.get_pos())
-        #print(hero.rect.x, hero.rect.y)# Основной цикл программы
+    while True:# Основной цикл программы
         if not hero.winner:
             timer.tick(60)
             if hero.not_die:
