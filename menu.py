@@ -25,6 +25,9 @@ def menu():
     go_back_to_menu = pygame.image.load('instructions/go_back.png')
     go_back_to_menu_rect = go_back_to_menu.get_rect(topleft=(38, 585))
 
+    go_back_to_menu2 = pygame.image.load('instructions/go_back.png')
+    go_back_to_menu_rect2 = go_back_to_menu.get_rect(topleft=(53, 585))
+
     levels_bg = pygame.image.load('levels_menu/level_menu.png')
 
     level_1 = pygame.image.load('levels_menu/1_level.png') # Создание кнопок для меню
@@ -34,6 +37,7 @@ def menu():
     level_3 = pygame.image.load('levels_menu/3_level.png')
     level_3_rect = level_3.get_rect(topleft=(276, 387))
 
+    clock = pygame.time.Clock()
 
     chose_level = False  # Переменные для сосотояния окна
     instructions = False
@@ -55,18 +59,29 @@ def menu():
                 raise SystemExit
         pygame.display.update()
     while chose_level:
+        pygame.init()
         screen.blit(levels_bg, (0, 0))
         screen.blit(level_1, level_1_rect)
         screen.blit(level_2, level_2_rect)
         screen.blit(level_3, level_3_rect)
-        #screen.blit(bg, (0, 0))
-        #screen.blit(continue_button, continue_button_rect)
+        screen.blit(go_back_to_menu2, go_back_to_menu_rect2)
+
         mouse = pygame.mouse.get_pos()
-        if level_1_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-            main(1)
+
+        if go_back_to_menu_rect2.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            chose_level = False
+            menu()
+
         for e in pygame.event.get():  # Обрабатываем события
             if e.type == pygame.constants.QUIT:
                 raise SystemExit
+            if level_1_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
+                main(1)
+            if level_2_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
+                main(2)
+            if level_3_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
+                main(3)
+
         pygame.display.update()
     while instructions:
         screen.blit(instructions_img, (0, 0))
