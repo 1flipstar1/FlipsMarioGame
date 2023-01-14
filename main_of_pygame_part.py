@@ -80,8 +80,6 @@ def main(num):
     global hero, screen, level
     level = []
     entities = pygame.sprite.Group()  # Все объекты
-    animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-    monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
     platforms = []  # то, во что мы будем врезаться или опираться
     loadLevel(num)
     pygame.init()  # Инициация PyGame, обязательная строчка
@@ -89,8 +87,8 @@ def main(num):
     pygame.display.set_caption("Super Mario Boy")  # Пишем в шапку
     bg = pygame.image.load('bg.gif')  # добавляем фоновое изображение
 
-    pygame.mixer.music.load("saundtrack.mp3")
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.load("saundtrack.mp3")
+    #pygame.mixer.music.play(-1)
 
     button = pygame.image.load('Design/pause\pause.png')
     button_rect = button.get_rect(topright=(800, 0))
@@ -159,7 +157,7 @@ def main(num):
             if hero.not_die:
                 if gameplay:
                     c = 0
-                    pygame.mixer.music.unpause()
+                    #pygame.mixer.music.unpause()
                     for e in pygame.event.get():  # Обрабатываем события
                         if e.type == QUIT:
                             raise SystemExit
@@ -206,7 +204,7 @@ def main(num):
                         for e in entities:
                             screen.blit(e.image, camera.apply(e))
                             # обновление и вывод всех изменений на экран
-                    pygame.mixer.music.pause()
+                    #pygame.mixer.music.pause()
                     screen.blit(pause_im, (0, 0))
                     screen.blit(continue_button, continue_button_rect)
                     screen.blit(go_back, go_back_rect)
@@ -220,19 +218,19 @@ def main(num):
                             return 1
                     c = 1
             else:
-                pygame.mixer.music.pause()
+                #pygame.mixer.music.pause()
                 screen.blit(loose_label, (0, 0))
                 mouse = pygame.mouse.get_pos()
                 if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                     right = left = running = up = False
                     hero.not_die = True
-                    hero.sound_die.stop()
+                    #hero.sound_die.stop()
                     pygame.mixer.music.set_pos(0.0)
                 for e in pygame.event.get():  # Обрабатываем события
                     if e.type == QUIT:
                         raise SystemExit
         else:
-            pygame.mixer.music.pause()
+            #pygame.mixer.music.pause()
             screen.blit(win_label, (0, 0))
             for e in pygame.event.get():  # Обрабатываем события
                 if e.type == QUIT:
@@ -246,6 +244,5 @@ entities = pygame.sprite.Group()  # Все объекты
 animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
 monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
 platforms = []  # то, во что мы будем врезаться или опираться
-if __name__ == "__main__":
-    main(2)
+
 
