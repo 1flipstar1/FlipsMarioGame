@@ -79,6 +79,10 @@ def loadLevel(num):
 def main(num):
     global hero, screen, level
     level = []
+    entities = pygame.sprite.Group()  # Все объекты
+    animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
+    monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
+    platforms = []  # то, во что мы будем врезаться или опираться
     loadLevel(num)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -209,12 +213,11 @@ def main(num):
                     mouse = pygame.mouse.get_pos()
                     if continue_button_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
                         gameplay = True
-                    if go_back_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-                        print(21)
-                        return 2
                     for e in pygame.event.get():  # Обрабатываем события
                         if e.type == QUIT:
                             raise SystemExit
+                        if e.type == MOUSEBUTTONDOWN and go_back_rect.collidepoint(mouse):
+                            return 1
                     c = 1
             else:
                 pygame.mixer.music.pause()

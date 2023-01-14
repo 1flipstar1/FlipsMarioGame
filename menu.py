@@ -153,9 +153,7 @@ def menu(need_anim):
             if e.type == pygame.constants.QUIT:
                 raise SystemExit
             if level_1_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
-                res = main(1)
-                if res == 2:
-                    menu(False)
+                main(1)
 
             if level_2_rect.collidepoint(mouse) and e.type == pygame.MOUSEBUTTONDOWN:
                 main(2)
