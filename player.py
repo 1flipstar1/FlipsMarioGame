@@ -87,9 +87,9 @@ class Player(sprite.Sprite):
 
         if up:
             if self.onGround:  # прыгаем, только когда можем оттолкнуться от земли
-                #jump_sound = mixer.Sound('jump_sound.mp3')
-                #jump_sound.set_volume(0.2)
-                #jump_sound.play()
+                jump_sound = mixer.Sound('jump_sound.mp3')
+                jump_sound.set_volume(0.2)
+                jump_sound.play()
                 self.yvel = -JUMP_POWER
                 if running and (left or right):  # если есть ускорение и мы движемся
                     self.yvel -= JUMP_EXTRA_POWER  # то прыгаем выше
@@ -147,10 +147,9 @@ class Player(sprite.Sprite):
                     self.die()  # умираем
                 elif isinstance(p, blocks.BlockTeleport):
                     self.teleporting(p.goX, p.goY)
-                elif isinstance(p, blocks.Princess):
-                    #self.sound_win = mixer.Sound('victory.mp3')
-                    #self.sound_win.play()
-                    # если коснулись принцессы
+                elif isinstance(p, blocks.Princess):# если коснулись принцессы
+                    self.sound_win = mixer.Sound('victory.mp3')
+                    self.sound_win.play()
                     self.winner = True  # победили!!!
                 else:
                     if xvel > 0:  # если движется вправо
@@ -174,7 +173,7 @@ class Player(sprite.Sprite):
 
     def die(self):
         time.wait(500)
-        #self.sound_die = mixer.Sound('mario-smert.mp3')
-        #self.sound_die.play()
+        self.sound_die = mixer.Sound('mario-smert.mp3')
+        self.sound_die.play()
         self.not_die = False
         self.teleporting(self.startX, self.startY)  # перемещаемся в начальные координаты

@@ -77,7 +77,7 @@ def menu(need_anim):
         while True:
             menu_b_y = 0
             while menu_b_y != 181:
-                clock.tick(700)
+                clock.tick(900)
                 screen.fill('#cb2229')
                 screen.blit(menu_im, (268, menu_b_y))
                 menu_b_y += 1
@@ -86,7 +86,7 @@ def menu(need_anim):
 
             start_b_x = -251
             while start_b_x != 276:
-                clock.tick(700)
+                clock.tick(1100)
                 screen.fill('#cb2229')
                 screen.blit(menu_im, (268, 181))
                 screen.blit(start_button, (start_b_x, 251))
@@ -96,7 +96,7 @@ def menu(need_anim):
 
             inst_b_x = 891
             while inst_b_x != 276:
-                clock.tick(700)
+                clock.tick(1100)
                 screen.fill('#cb2229')
                 screen.blit(menu_im, (268, 181))
                 screen.blit(start_button, ((276, 251)))
@@ -106,7 +106,7 @@ def menu(need_anim):
 
             start_b_x = -251
             while start_b_x != 276:
-                clock.tick(700)
+                clock.tick(1100)
                 screen.fill('#cb2229')
                 screen.blit(menu_im, (268, 181))
                 screen.blit(start_button, ((276, 251)))
