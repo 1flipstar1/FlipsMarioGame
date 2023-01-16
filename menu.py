@@ -10,9 +10,9 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 
 def menu(need_anim):
     pygame.init()
-    screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
+    screen = pygame.display.set_mode(DISPLAY)  # Создание окна
     pygame.display.set_caption("Super Mario Boy")  # Название
-    bg = pygame.image.load('Design/menu/menu_bg.png')  # добавляем фоновое изображение
+    bg = pygame.image.load('Design/menu/menu_bg.png')  # Фоновое изображение
 
     menu_im = pygame.image.load('Design/menu/menu_lbl.png')
 
@@ -45,34 +45,6 @@ def menu(need_anim):
     chose_level = False  # Переменные для сосотояния окна
     instructions = False
 
-    '''x = 0
-    y = 200
-    a = 1
-    while y != 276 and x != 251:
-        clock.tick(18)
-        screen.fill((0, 0, 0))
-        x += 4
-        if a == 1:
-            count = 0
-            while count != 200:
-                y += 1
-                screen.fill((0, 0, 0))
-                screen.blit(start_button, (y, x))
-                pygame.display.update()
-                count += 1
-            a = 2
-        else:
-            count = 0
-            while count != 200:
-                y -= 1
-                screen.fill((0, 0, 0))
-                screen.blit(start_button, (y, x))
-                pygame.display.update()
-                count += 1
-            a = 1
-        for e in pygame.event.get():  # Обрабатываем события
-            if e.type == pygame.constants.QUIT:
-                raise SystemExit'''
     if need_anim:
         while True:
             menu_b_y = 0

@@ -5,9 +5,10 @@ from pygame import *
 import os
 import pyganim
 
+
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
-PLATFORM_COLOR = "#000000"
+PLATFORM_COLOR = "#7686ff"
 ICON_DIR = os.path.dirname(__file__) #  Полный путь к каталогу с файлами
 
 ANIMATION_BLOCKTELEPORT = [

@@ -12,7 +12,6 @@ from monsters import *
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 640  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
-BACKGROUND_COLOR = "#000000"
 
 FILE_DIR = os.path.dirname(__file__)
 
@@ -43,7 +42,7 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(num):
-    global playerX, playerY  # объявляем глобальные переменные, это координаты героя
+    global playerX, playerY, monsters1  # объявляем глобальные переменные, это координаты героя
     levelFile = open(f'levels/{str(num)}.txt')
     line = " "
     commands = []
@@ -72,19 +71,23 @@ def loadLevel(num):
                                  int(commands[5]), int(commands[6]))
                     entities.add(mn)
                     platforms.append(mn)
-                    monsters.add(mn)
+                    monsters1.add(mn)
+                    print(monsters1, 2)
 
 
 def main(num):
-    global hero, screen, level
+    pygame.init()  # Инициация PyGame, обязательная строчка
+    global hero, screen, level, monsters1, entities, animatedEntities, platforms
     level = []
     entities = pygame.sprite.Group()  # Все объекты
     animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-    monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
+    monsters1 = pygame.sprite.Group()
+    print(monsters1, 1)# Все передвигающиеся объекты
     platforms = []  # то, во что мы будем врезаться или опираться
 
     loadLevel(num)
-    pygame.init()  # Инициация PyGame, обязательная строчка
+    print(monsters1, 3)
+
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Super Mario Boy")  # Пишем в шапку
     bg = pygame.image.load('bg.gif')  # добавляем фоновое изображение
@@ -182,7 +185,9 @@ def main(num):
                     screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
                     animatedEntities.update()  # показываеaм анимацию
-                    monsters.update(platforms)  # передвигаем всех монстров
+                    print(monsters1)
+                    monsters1.update(platforms)
+                    print(monsters1)# передвигаем всех монстров
                     camera.update(hero)  # центризируем камеру относительно персонажа
                     hero.update(left, right, up, running, platforms)  # передвижение
                     for e in entities:
@@ -198,7 +203,8 @@ def main(num):
                     if c == 0:
                         screen.blit(bg, (0, 0))  # смотреть
                         animatedEntities.update()  # Показываеaм анимацию
-                        monsters.update(platforms)  # передвигаем всех монстров
+                        monsters1.update(platforms)
+                        print(monsters1)# передвигаем всех монстров
                         camera.update(hero)  # центризируем камеру относительно персонажа
                         hero.update(left, right, up, running, platforms)  # передвижение
                         for e in entities:
@@ -243,5 +249,5 @@ def main(num):
 level = []
 entities = pygame.sprite.Group()  # Все объекты
 animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
+monsters1 = pygame.sprite.Group()  # Все передвигающиеся объекты
 platforms = []  # то, во что мы будем врезаться или опираться
