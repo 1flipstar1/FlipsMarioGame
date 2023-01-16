@@ -72,7 +72,6 @@ def loadLevel(num):
                     entities.add(mn)
                     platforms.append(mn)
                     monsters1.add(mn)
-                    print(monsters1, 2)
 
 
 def main(num):
@@ -81,12 +80,10 @@ def main(num):
     level = []
     entities = pygame.sprite.Group()  # Все объекты
     animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-    monsters1 = pygame.sprite.Group()
-    print(monsters1, 1)# Все передвигающиеся объекты
+    monsters1 = pygame.sprite.Group() # Все передвигающиеся объекты
     platforms = []  # то, во что мы будем врезаться или опираться
 
     loadLevel(num)
-    print(monsters1, 3)
 
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Super Mario Boy")  # Пишем в шапку
@@ -185,9 +182,7 @@ def main(num):
                     screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
                     animatedEntities.update()  # показываеaм анимацию
-                    print(monsters1)
-                    monsters1.update(platforms)
-                    print(monsters1)# передвигаем всех монстров
+                    monsters1.update(platforms)# передвигаем всех монстров
                     camera.update(hero)  # центризируем камеру относительно персонажа
                     hero.update(left, right, up, running, platforms)  # передвижение
                     for e in entities:
@@ -203,8 +198,7 @@ def main(num):
                     if c == 0:
                         screen.blit(bg, (0, 0))  # смотреть
                         animatedEntities.update()  # Показываеaм анимацию
-                        monsters1.update(platforms)
-                        print(monsters1)# передвигаем всех монстров
+                        monsters1.update(platforms)# передвигаем всех монстров
                         camera.update(hero)  # центризируем камеру относительно персонажа
                         hero.update(left, right, up, running, platforms)  # передвижение
                         for e in entities:
