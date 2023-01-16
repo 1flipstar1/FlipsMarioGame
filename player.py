@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from pygame import *
 import pyganim
 import os
@@ -96,7 +93,6 @@ class Player(sprite.Sprite):
                 self.image.fill(Color(COLOR))
                 self.boltAnimJump.blit(self.image, (0, 0))
 
-
         if left:
             self.xvel = -MOVE_SPEED  # Лево = x- n
             self.image.fill(Color(COLOR))
@@ -147,7 +143,7 @@ class Player(sprite.Sprite):
                     self.die()  # умираем
                 elif isinstance(p, blocks.BlockTeleport):
                     self.teleporting(p.goX, p.goY)
-                elif isinstance(p, blocks.Princess):# если коснулись принцессы
+                elif isinstance(p, blocks.Princess):  # если коснулись принцессы
                     self.sound_win = mixer.Sound('victory.mp3')
                     self.sound_win.play()
                     self.winner = True  # победили!!!

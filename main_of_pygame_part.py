@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Импортируем библиотеку pygame
 import pygame
 from pygame import *
@@ -12,8 +9,6 @@ from monsters import *
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 640  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
-
-FILE_DIR = os.path.dirname(__file__)
 pygame.init()  # Инициация PyGame, обязательная строчка
 
 
@@ -81,7 +76,7 @@ def main(num):
     level = []
     entities = pygame.sprite.Group()  # Все объекты
     animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-    monsters1 = pygame.sprite.Group() # Все передвигающиеся объекты
+    monsters1 = pygame.sprite.Group()  # Все передвигающиеся объекты
     platforms = []  # то, во что мы будем врезаться или опираться
 
     loadLevel(num)
@@ -100,7 +95,6 @@ def main(num):
     up = False
     running = False
 
-
     win_m_label = pygame.image.load('Design/result/victory/win_w_go_to_menu.png')
     go_to_menu_button = pygame.image.load('Design/result/victory/go_to_menu_button.png')
     go_to_menu_button_rect = go_to_menu_button.get_rect(topleft=(329, 506))
@@ -108,7 +102,6 @@ def main(num):
     win_nl_label = pygame.image.load('Design/result/victory/win_w_go_to_nextlvl.png')
     go_to_nextlvl_button = pygame.image.load('Design/result/victory/next_lvl_button.png')
     go_to_nextlvl_button_rect = go_to_nextlvl_button.get_rect(topleft=(143, 499))
-
 
     loose_label = pygame.image.load('Design/result/loose/loose_img.png')
 
@@ -185,7 +178,7 @@ def main(num):
                     screen.blit(bg, (0, 0))  # Каждую итерацию необходимо всё перерисовывать
 
                     animatedEntities.update()  # показываеaм анимацию
-                    monsters1.update(platforms)# передвигаем всех монстров
+                    monsters1.update(platforms)  # передвигаем всех монстров
                     camera.update(hero)  # центризируем камеру относительно персонажа
                     hero.update(left, right, up, running, platforms)  # передвижение
                     for e in entities:
@@ -201,7 +194,7 @@ def main(num):
                     if c == 0:
                         screen.blit(bg, (0, 0))  # смотреть
                         animatedEntities.update()  # Показываеaм анимацию
-                        monsters1.update(platforms)# передвигаем всех монстров
+                        monsters1.update(platforms)  # передвигаем всех монстров
                         camera.update(hero)  # центризируем камеру относительно персонажа
                         hero.update(left, right, up, running, platforms)  # передвижение
                         for e in entities:

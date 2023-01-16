@@ -8,7 +8,6 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 pygame.init()  # Инициация PyGame, обязательная строчка
 
 
-
 def menu(need_anim):
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)  # Создание окна
@@ -17,7 +16,7 @@ def menu(need_anim):
 
     menu_im = pygame.image.load('Design/menu/logo.png')
 
-    start_button = pygame.image.load('Design/menu/start_menu_button.png') # Создание кнопок для меню
+    start_button = pygame.image.load('Design/menu/start_menu_button.png')  # Создание кнопок для меню
     start_button_rect = start_button.get_rect(topleft=(276, 251))
     instruction_button = pygame.image.load('Design/menu/instruction_button.png')
     instruction_button_rect = instruction_button.get_rect(topleft=(276, 319))
@@ -34,7 +33,7 @@ def menu(need_anim):
 
     levels_bg = pygame.image.load('Design/levels_menu/level_menu.png')
 
-    level_1 = pygame.image.load('Design/levels_menu/1_level.png') # Создание кнопок для меню
+    level_1 = pygame.image.load('Design/levels_menu/1_level.png')  # Создание кнопок для меню
     level_1_rect = level_1.get_rect(topleft=(276, 251))
     level_2 = pygame.image.load('Design/levels_menu/2_level.png')
     level_2_rect = level_2.get_rect(topleft=(276, 319))
@@ -121,8 +120,6 @@ def menu(need_anim):
                 menu_b_y += 1
                 pygame.display.update()
 
-
-
             start_b_x = -251
             while start_b_x != 276:
                 clock.tick(1100)
@@ -131,7 +128,6 @@ def menu(need_anim):
                 screen.blit(start_button, (start_b_x, 251))
                 start_b_x += 1
                 pygame.display.update()
-
 
             inst_b_x = 891
             while inst_b_x != 276:
@@ -154,9 +150,6 @@ def menu(need_anim):
                 start_b_x += 1
                 pygame.display.update()
             break
-
-
-
 
     while not chose_level and not instructions:
         screen.blit(bg, (0, 0))
