@@ -14,6 +14,7 @@ WIN_HEIGHT = 640  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 
 FILE_DIR = os.path.dirname(__file__)
+pygame.init()  # Инициация PyGame, обязательная строчка
 
 
 class Camera(object):
@@ -92,19 +93,24 @@ def main(num):
     pygame.mixer.music.load("saundtrack.mp3")
     pygame.mixer.music.play(-1)
 
-    button = pygame.image.load('Design/pause\pause.png')
+    button = pygame.image.load('Design/pause/pause.png')
     button_rect = button.get_rect(topright=(800, 0))
 
     left = right = False  # по умолчанию - стоим
     up = False
     running = False
 
-    label = pygame.font.Font('font.otf', 40)
+
+    win_m_label = pygame.image.load('Design/result/victory/win_w_go_to_menu.png')
+    go_to_menu_button = pygame.image.load('Design/result/victory/go_to_menu_button.png')
+    go_to_menu_button_rect = go_to_menu_button.get_rect(topleft=(329, 506))
+
+    win_nl_label = pygame.image.load('Design/result/victory/win_w_go_to_nextlvl.png')
+    go_to_nextlvl_button = pygame.image.load('Design/result/victory/next_lvl_button.png')
+    go_to_nextlvl_button_rect = go_to_nextlvl_button.get_rect(topleft=(143, 499))
 
 
-
-    win_label = pygame.image.load('Design/result/victory.png')
-    loose_label = pygame.image.load('Design/result/loose_img.png')
+    loose_label = pygame.image.load('Design/result/loose/loose_img.png')
 
     continue_button = pygame.image.load('Design/pause/continue.png')
     continue_button_rect = continue_button.get_rect(topleft=(296, 255))
@@ -112,12 +118,9 @@ def main(num):
     go_back = pygame.image.load('Design/pause/go_back.png')
     go_back_rect = go_back.get_rect(topleft=(296, 322))
 
-    go_back_button = label.render('Меню', False, (255, 255, 255))
-    go_back_button_rect = go_back_button.get_rect(topleft=(330, 400))
-
     pause_im = pygame.image.load('Design/pause/pause_menu_bg.png')
 
-    restart_label = pygame.image.load('Design/result/restart_button.png')
+    restart_label = pygame.image.load('Design/result/loose/restart_button.png')
     restart_label_rect = restart_label.get_rect(topleft=(222, 520))
 
     hero = Player(playerX, playerY)  # создаем героя по (x,y) координатам
@@ -231,11 +234,26 @@ def main(num):
                     if e.type == QUIT:
                         raise SystemExit
         else:
-            pygame.mixer.music.pause()
-            screen.blit(win_label, (0, 0))
-            for e in pygame.event.get():  # Обрабатываем события
-                if e.type == QUIT:
-                    raise SystemExit
+            if num == 3:
+                pygame.mixer.music.pause()
+                screen.blit(win_m_label, (0, 0))
+                screen.blit(go_to_menu_button, go_to_menu_button_rect)
+                mouse = pygame.mouse.get_pos()
+                for e in pygame.event.get():  # Обрабатываем события
+                    if e.type == QUIT:
+                        raise SystemExit
+                    if e.type == MOUSEBUTTONDOWN and go_to_menu_button_rect.collidepoint(mouse):
+                        return 1
+            else:
+                pygame.mixer.music.pause()
+                screen.blit(win_nl_label, (0, 0))
+                screen.blit(go_to_nextlvl_button, go_to_nextlvl_button_rect)
+                mouse = pygame.mouse.get_pos()
+                for e in pygame.event.get():  # Обрабатываем события
+                    if e.type == QUIT:
+                        raise SystemExit
+                    if e.type == MOUSEBUTTONDOWN and go_to_nextlvl_button_rect.collidepoint(mouse):
+                        return 2
 
         pygame.display.update()
 
